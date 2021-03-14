@@ -9,11 +9,6 @@
     android:orientation="vertical"
     tools:context=".AllMessagesActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,55 +26,6 @@
 
         <include layout="@layout/content_all_messages" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/messageInput"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:hint="Insert your message" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="addMessage"
-                android:text="Add" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/messageMessages"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="12dp"
-                android:padding="12dp"
-                android:textSize="18sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/messageRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="249dp"
-                android:layout_margin="20dp"
-                android:padding="10dp" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/allMessagesBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="messageButtonBack"
-            android:text="Back" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -89,7 +35,7 @@
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_menu_revert" />
 
-    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

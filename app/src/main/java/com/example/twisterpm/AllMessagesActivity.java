@@ -65,9 +65,9 @@ public static final String MESSAGE ="message";
        // MenuInflater inflater = getMenuInflater();
         //inflater.inflate(R.menu.messages_bar, menu);
 
-        if( Build.VERSION.SDK_INT>15)
+        /*if( Build.VERSION.SDK_INT>15)
             getMenuInflater();
-        else
+        else*/
             getMenuInflater().inflate(R.menu.messages_bar, menu);
         //return super.onCreateOptionsMenu(menu);
         return true;
