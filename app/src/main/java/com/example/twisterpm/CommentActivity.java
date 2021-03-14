@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -41,6 +42,12 @@ public class CommentActivity extends AppCompatActivity {
         message=findViewById(R.id.commentOriginalMessage);
         message.setText(theMessage.getContent()+"");
          getAllComments();
+
+        FloatingActionButton fab = findViewById(R.id.commentFab);
+        fab.setOnClickListener( view -> {
+            new Intent(CommentActivity.this, AllMessagesActivity.class);
+            startActivity(intent);
+        });
 
     }
 
@@ -124,7 +131,6 @@ public class CommentActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Comments> call, Throwable t) {
                     //progressBar.setVisibility(View.INVISIBLE);
@@ -133,9 +139,7 @@ public class CommentActivity extends AppCompatActivity {
                     Log.e("addMessage", t.getMessage());
                 }
             });
-
-        }
-
+    }
 
     public void commentDeleteMessage(View view) {
 
@@ -152,12 +156,10 @@ public class CommentActivity extends AppCompatActivity {
 
                 if(messageUser== theuser) {
                     if (response.isSuccessful()) {
-                        //Snackbar.make(view, "Book deleted, id: " + originalBook.getId(), Snackbar.LENGTH_LONG).show();
                         String message = "Message deleted, id: " + theMessage.getId();
-                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Message is deleted ", Toast.LENGTH_SHORT).show();
                         Log.d("delete", message);
                         recreate();
-
                     } else
                         Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
                     }
@@ -169,15 +171,12 @@ public class CommentActivity extends AppCompatActivity {
                         Log.e("delete", problem);
                     }
                 }
-
-            @Override
+                @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
                 Log.e("delete", "Problem: " + t.getMessage());
             }
         });
-
-
     }
 
     public void commentDelete(View view) {

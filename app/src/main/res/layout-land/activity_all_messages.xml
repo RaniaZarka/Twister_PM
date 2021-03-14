@@ -2,17 +2,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/messageLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/messageLayout"
     android:background="@drawable/blueshade"
     android:orientation="vertical"
     tools:context=".AllMessagesActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -23,72 +18,22 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="319dp"
-            android:layout_height="2dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.TwisterPM.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        layout="@layout/content_all_messages"
-        />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/messageInput"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:hint="Insert your message" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="addMessage"
-                android:text="Add" />
+    <include layout="@layout/content_all_messages" />
 
 
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/messageMessages"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="12dp"
-            android:padding="12dp"
-            android:textSize="18sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messageRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="99dp"
-            android:layout_margin="20dp"
-            android:padding="10dp" />
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="messageButtonBack"
-                android:text="Back" />
-
-        </LinearLayout>
-    </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

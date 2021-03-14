@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,49 +44,39 @@ public static final String MESSAGE ="message";
         setContentView(R.layout.activity_all_messages);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getAndShowAllMessages();
 
         messagesLayout = findViewById(R.id.messageLayout);
 
-       // FloatingActionButton fab = findViewById(R.id.fab);
-        //fab.setOnClickListener( view -> {
-
-              //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                       //.setAction("Action", null).show();
-             //Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
-             //startActivity(intent);
-            // finish();
-
-       // )};
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener( view -> {
+            Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       // MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.messages_bar, menu);
-
-        /*if( Build.VERSION.SDK_INT>15)
-            getMenuInflater();
-        else*/
-            getMenuInflater().inflate(R.menu.messages_bar, menu);
-        //return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.messages_bar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case R.id.action_add:
+                LinearLayout layout= findViewById(R.id.allMessagesAddLayout);
+                layout.setVisibility(View.VISIBLE) ;
+                return true;
+            case R.id.action_profile:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_settings:
+                Toast.makeText(this, "no settings added yet",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
     private void getAndShowAllMessages() {
         ApiServices services = ApiUtils.getMessagesService();
@@ -96,25 +87,21 @@ public static final String MESSAGE ="message";
         getAllMessagesCall.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                Log.d("message", response.raw().toString());
+                Log.d(MESSAGE, response.raw().toString());
 
                 if (response.isSuccessful()) {
                     List<Message> allMessages = response.body();
-
-                    Log.d("message", allMessages.toString());
+                    Log.d(MESSAGE, allMessages.toString());
                     populateRecycleView(allMessages);
-
                 } else {
                     String message = "Problem " + response.code() + " " + response.message();
-                    Log.d("message", message);
+                    Log.d(MESSAGE, "the problem is: " +message);
                     viewMessage.setText(message);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
-
-                Log.e("message", t.getMessage());
+                Log.e(MESSAGE, t.getMessage());
                 viewMessage.setText(t.getMessage());
             }
         });
@@ -127,11 +114,9 @@ public static final String MESSAGE ="message";
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener((view, position, item) -> {
                 Message message = (Message) item;
-                Log.d("message", item.toString());
+                Log.d(MESSAGE, "item is: " +item.toString());
                 Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtra(CommentActivity.MESSAGE, message );
-                //String user= message.getUser();
-                //intent.putExtra(CommentActivity.EMAIL, user);
                 startActivity(intent);
             });
         }
@@ -140,47 +125,32 @@ public static final String MESSAGE ="message";
         EditText input= findViewById(R.id.messageInput);
         String content = input.getText().toString().trim();
         String user = getIntent().getStringExtra(Email);
-        Intent intent = getIntent();
 
         ApiServices services= ApiUtils.getMessagesService();
         Message message = new Message(content, user);
         Call<Message> saveNewMessageCall = services.saveMessage(message);
-        //progressBar.setVisibility(View.VISIBLE);
         saveNewMessageCall.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                //progressBar.setVisibility(View.INVISIBLE);
                 if (response.isSuccessful()) {
                     Message newMessage = response.body();
-                    Log.d("addMessage", newMessage.toString());
+                    Log.d(MESSAGE, "the new message is: " +newMessage.toString());
                     Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
                     // the following codes is to make an autorefresh so the added message shows right away
                     recreate();
-
                 } else {
                     String problem = "Problem: " + response.code() + " " + response.message();
-                    Log.e("addMessage", problem);
+                    Log.e(MESSAGE, " the problem is: " + problem);
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 //progressBar.setVisibility(View.INVISIBLE);
                // messageView.setText(t.getMessage());
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                Log.e("addMessage", t.getMessage());
+                Log.e(MESSAGE, t.getMessage());
             }
         });
-
     }
-
-
-        public void messageButtonBack(View view) {
-            finish();
-        }
-
-
-
-
 }

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("UserApple", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Log.d("user", mAuth.getCurrentUser().toString());
+                                Log.d("userApple", mAuth.getCurrentUser().toString());
                                 //updateUI(user);
 
                                 Intent intent = new Intent(getBaseContext(), AllMessagesActivity.class);

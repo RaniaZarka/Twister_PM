@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="twisterpm.AllMessagesActivity">
     <item
-        android:id="@+id/action_add"
-        android:icon="@android:drawable/btn_plus"
+        android:id="@+id/action_profile"
+        android:icon="@android:drawable/presence_online"
         app:showAsAction="always"
-        android:title="Add">
+        android:title="Profile">
     </item>
     <item
         android:id="@+id/action_settings"
@@ -15,10 +15,10 @@
         android:title="Settings">
     </item>
     <item
-        android:id="@+id/bar_add"
+        android:id="@+id/action_add"
         android:icon="@android:drawable/ic_input_add"
         android:title="Add"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/bar_delete"

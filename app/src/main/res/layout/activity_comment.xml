@@ -66,13 +66,15 @@
         android:id="@+id/commentDeleteMessage"
         android:text="Delete message"
         android:onClick="commentDeleteMessage"/>
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Back"
-    android:onClick="CommentBackbtn"/>
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/commentFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 </LinearLayout>
 
 </LinearLayout>

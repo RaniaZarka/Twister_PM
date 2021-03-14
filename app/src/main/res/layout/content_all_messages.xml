@@ -12,13 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/allMessagesAddLayout"
+    android:visibility="gone"
+    android:orientation="horizontal">
         <EditText
             android:id="@+id/messageInput"
             android:layout_width="0dp"
@@ -33,9 +32,7 @@
             android:onClick="addMessage"
             android:text="Add" />
 
-
-    </LinearLayout>
-
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,17 +49,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messageRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="249dp"
+            android:layout_height="189dp"
             android:layout_margin="20dp"
             android:padding="10dp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/allMessagesBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="messageButtonBack"
-        android:text="Back" />
 
     </LinearLayout>
 
