@@ -15,7 +15,8 @@
         android:id="@+id/commentOriginalMessage"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="25"
         android:orientation="vertical">
 
         <TextView
@@ -24,26 +25,31 @@
             android:layout_height="1dp"
             android:layout_margin="12dp"
             android:padding="12dp"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="108dp"
+            android:layout_height="78dp"
             android:layout_margin="20dp"
             android:padding="10dp" />
     </LinearLayout>
 
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="10">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/commentInsertComment"
         android:hint="Insert your comment"/>
+</LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="33"
     android:orientation="vertical">
     <Button
         android:id="@+id/commentAdd"
@@ -68,13 +74,6 @@
         android:onClick="commentDeleteMessage"/>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/commentFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
 </LinearLayout>
 
 </LinearLayout>

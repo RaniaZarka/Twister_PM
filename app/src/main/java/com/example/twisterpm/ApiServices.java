@@ -21,7 +21,7 @@ public interface ApiServices {
     Call<List<Comments>>getCommentById(@Path("messageId") int messageId);
 
     @POST("messages/{messageId}/comments")
-    Call<Comments>saveCommentBody(@Body Comments comment);
+    Call<Comments>saveCommentBody(@Path("messageId")int messageId, @Body Comments comment);
 
     @POST("messages")
     @FormUrlEncoded
