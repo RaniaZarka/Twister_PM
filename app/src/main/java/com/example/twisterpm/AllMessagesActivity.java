@@ -1,28 +1,18 @@
 package com.example.twisterpm;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Layout;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +34,7 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     private Message messageToDelete;
     public static final String Email = "user";
     private GestureDetector mDetector;
+    RecyclerViewMessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +45,6 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         getAndShowAllMessages();
         mDetector = new GestureDetector(this, this);
         messagesLayout = findViewById(R.id.messageLayout);
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
@@ -120,9 +110,11 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     private void populateRecycleView(List<Message> allMessages) {
         RecyclerView recyclerView = findViewById(R.id.messageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
+        //RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
+        RecyclerViewMessageAdapter adapter= new RecyclerViewMessageAdapter(this, allMessages);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((view, position, item) -> {
+
+        adapter.setClickListener((view, position, item) -> {
             Message message = (Message) item;
             Log.d(MESSAGE, "item is: " + item.toString());
             Intent intent = new Intent(this, CommentActivity.class);
@@ -139,6 +131,9 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         ApiServices services = ApiUtils.getMessagesService();
         Message message = new Message(content, user);
         Call<Message> saveNewMessageCall = services.saveMessage(message);
+        if(content.isEmpty())
+        {  Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();}
+        else
         saveNewMessageCall.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

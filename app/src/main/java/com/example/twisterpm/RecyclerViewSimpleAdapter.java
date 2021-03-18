@@ -75,7 +75,6 @@ public class RecyclerViewSimpleAdapter <T> extends RecyclerView.Adapter<Recycler
 
         MyViewHolder(@NonNull final View itemView) {
             super(itemView);
-            //view = itemView.findViewById(viewId);
             view= itemView.findViewById(viewId);
             view.setOnClickListener(this);
         }

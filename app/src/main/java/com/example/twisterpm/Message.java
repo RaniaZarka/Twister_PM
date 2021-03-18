@@ -88,6 +88,6 @@ public class Message implements Serializable
         this.totalComments = totalComments;
     }
 
-    public String toString() {return id + ", " + user + ", " + content + ", " + totalComments;}
+    public String toString() {return id + ", " + user + ", " + content + ", " + "total comments "+ totalComments;}
 
 }

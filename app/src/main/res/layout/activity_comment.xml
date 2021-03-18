@@ -7,22 +7,93 @@
     tools:context=".CommentActivity"
     android:background="@drawable/blueshade"
     android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <TextView
-        android:layout_marginTop="20dp"
+        android:id="@+id/commentOriginalMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/commentOriginalMessage"/>
+        android:layout_marginTop="20dp"
+        android:layout_weight="5" />
+
+
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25"
+        android:layout_weight="20"
+        android:id="@+id/allCommentsAddLayout"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/commentInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Insert your comment" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/CommentAddBtn"
+            android:onClick="commentAdd"
+            android:text="Add" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:id="@+id/commentsDeleteAMessageLayout"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Are you sure you want to delete the message" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="DeleteMessage"
+            android:text="Yes" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:onClick="back"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/commentMessageComments"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="5"
             android:layout_margin="12dp"
             android:padding="12dp"
             android:textSize="14sp" />
@@ -30,7 +101,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/commentRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="0dp"
+            android:layout_weight="90"
             android:layout_margin="20dp"
             android:padding="10dp" />
     </LinearLayout>
@@ -39,39 +111,17 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="10">
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/commentInsertComment"
-        android:hint="Insert your comment"/>
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="33"
-    android:orientation="vertical">
-    <Button
-        android:id="@+id/commentAdd"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
+    android:layout_weight="20"
+    android:orientation="horizontal">
 
-        android:onClick="commentAdd"
-        android:text="Add Comment" />
 
     <Button
         android:id="@+id/commentDeleteBtn"
-        android:layout_width="170dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:onClick="commentDelete"
+        android:textSize="10dp"
         android:text="Delete Comment" />
-
-    <Button
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/commentDeleteMessage"
-        android:text="Delete message"
-        android:onClick="commentDeleteMessage"/>
 
 
 </LinearLayout>

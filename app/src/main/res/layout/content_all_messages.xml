@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
+
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-        android:layout_weight="20"
-    android:id="@+id/allMessagesAddLayout"
+    android:layout_height="wrap_content"
+        android:id="@+id/allMessagesAddLayout"
     android:visibility="gone"
     android:orientation="horizontal">
         <EditText
