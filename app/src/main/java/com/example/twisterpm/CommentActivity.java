@@ -127,15 +127,13 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     private void populateRecycleView(List<Comments> allComments) {
         RecyclerView recyclerView = findViewById(R.id.commentRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewSimpleAdapter<Comments> adapter = new RecyclerViewSimpleAdapter<>(allComments);
+        RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter(this, allComments);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((view, position, item) -> {
+        adapter.setClickListener((view, position, item) -> {
             Comments comments = (Comments) item;
             Log.d("comment", item.toString());
 
-           /*   Intent intent = new Intent(this, CommentActivity.class);
-                intent.putExtra(CommentActivity.MESSAGE, message);
-                startActivity(intent);*/
+
         });
     }
 

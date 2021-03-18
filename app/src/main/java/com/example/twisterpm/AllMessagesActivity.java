@@ -110,7 +110,6 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     private void populateRecycleView(List<Message> allMessages) {
         RecyclerView recyclerView = findViewById(R.id.messageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //RecyclerViewSimpleAdapter<Message> adapter = new RecyclerViewSimpleAdapter<>(allMessages);
         RecyclerViewMessageAdapter adapter= new RecyclerViewMessageAdapter(this, allMessages);
         recyclerView.setAdapter(adapter);
 

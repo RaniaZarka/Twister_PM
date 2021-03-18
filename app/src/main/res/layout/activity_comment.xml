@@ -21,13 +21,15 @@
 
 
 </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/allCommentsAddLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
-        android:id="@+id/allCommentsAddLayout"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
+
         <EditText
             android:id="@+id/commentInput"
             android:layout_width="0dp"
@@ -36,20 +38,23 @@
             android:hint="Insert your comment" />
 
         <Button
+            android:id="@+id/CommentAddBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/CommentAddBtn"
             android:onClick="commentAdd"
             android:text="Add" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
+        android:layout_marginTop="15dp"
         android:id="@+id/commentsDeleteAMessageLayout"
         android:visibility="gone"
+        android:background="@color/white"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,24 +63,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:textColor="@color/black"
+
             android:text="Are you sure you want to delete the message" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="DeleteMessage"
-            android:text="Yes" />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:onClick="back"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="back"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Cancel" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="DeleteMessage"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Yes" />
 
         </LinearLayout>
 
