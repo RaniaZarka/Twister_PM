@@ -66,6 +66,7 @@
             android:layout_margin="6dp"
             android:background="@drawable/rouded_button"
             android:onClick="login"
+            android:id="@+id/mainSignInbtn"
             android:text="Sign in" />
 
         <Button
@@ -74,13 +75,19 @@
             android:layout_margin="6dp"
             android:background="@drawable/rouded_button"
             android:onClick="logout"
+            android:id="@+id/mainSignoutBtn"
             android:text="Sign out" />
 
         <TextView
-            android:id="@+id/mainCommentMessage"
+            android:id="@+id/mainWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/mainYouAreSignout"
+            android:layout_width="match_parent"
+            android:visibility="invisible"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

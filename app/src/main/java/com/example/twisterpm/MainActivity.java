@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("UserApple", "Current user " + currentUser);
-       // if(currentUser != null){
-            //reload();
-        //}
-
     }
 
     public void login(View view) {
@@ -61,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Log.d("userApple", mAuth.getCurrentUser().toString());
                                 //updateUI(user);
-
+                                TextView text=findViewById(R.id.mainWelcome);
+                                text.setVisibility(View.INVISIBLE);
                                 Intent intent = new Intent(getBaseContext(), AllMessagesActivity.class);
                                 intent.putExtra(AllMessagesActivity.Email, email);
                                 startActivity(intent);
@@ -95,20 +92,19 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("UserApple", "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                TextView text=findViewById(R.id.mainWelcome);
+                                //text.setText(user.getEmail());
+                               // text.setVisibility(View.VISIBLE);
                                 //updateUI(user);
-                                Toast.makeText(getApplicationContext(), " welcome to Twister PM " + user.getEmail() + ". Please sign in", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Welcome to Twister PM" + user.getEmail() + ". Please sign in", Toast.LENGTH_LONG).show();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("UserApple", "createUserWithEmail:failure", task.getException());
                                 // we can use toast to show a message for the user, but the Toast is a message that disappear quickly
                                 Toast.makeText(getBaseContext(), task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
-
                             }
-
-                            // ...
                         }
-
                     });
         }
     }
@@ -116,10 +112,6 @@ public class MainActivity extends AppCompatActivity {
     public void logout(View view) {
 
         FirebaseAuth.getInstance().signOut();
-        TextView messageView = findViewById(R.id.mainCommentMessage);
-        // with the following we get the error messages set by firebase
         Toast.makeText(getApplicationContext(), " You are signe out!", Toast.LENGTH_LONG).show();
-
     }
-
 }

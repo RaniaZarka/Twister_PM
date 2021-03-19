@@ -64,6 +64,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         // );
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAllComments();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,12 +134,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter(this, allComments);
         recyclerView.setAdapter(adapter);
-        adapter.setClickListener((view, position, item) -> {
-            Comments comments = (Comments) item;
-            Log.d("comment", item.toString());
-
-
-        });
+        //adapter.setClickListener(( view, position, item) -> {
+           // Comments comments = (Comments) item;
+           // Log.d("comment", item.toString());
+          //  commentDelete();
+       // });
     }
 
     public void commentAdd(View view) {
@@ -202,6 +206,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         Log.d("delete", "the deleted message is" + message);
                         TextView text=findViewById(R.id.commentOriginalMessage);
                         text.setText("");
+
                         recreate();
                     } else {
                         String problem = call.request().url() + "\n" + response.code() + " " + response.message();

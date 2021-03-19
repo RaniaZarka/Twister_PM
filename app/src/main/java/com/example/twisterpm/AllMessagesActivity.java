@@ -42,7 +42,7 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         setContentView(R.layout.activity_all_messages);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getAndShowAllMessages();
+        //getAndShowAllMessages();
         mDetector = new GestureDetector(this, this);
         messagesLayout = findViewById(R.id.messageLayout);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -50,6 +50,12 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
             Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAndShowAllMessages();
     }
 
     @Override
@@ -77,7 +83,7 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         }
     }
 
-    private void getAndShowAllMessages() {
+    public void getAndShowAllMessages() {
         ApiServices services = ApiUtils.getMessagesService();
         Call<List<Message>> getAllMessagesCall = services.getAllMessages();
         viewMessage = findViewById(R.id.messageMessages);

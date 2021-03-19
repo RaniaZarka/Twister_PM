@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,24 +56,35 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public interface ItemClickListener<T> {
         void onItemClick(View view, int position, Comments comment);
+        void onDeleteClick(View view, int position, Comments comment);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         final TextView UsertextView, ContenttextView;
+        final ImageView mDelete;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             UsertextView = itemView.findViewById(R.id.recyclerCommentUser);
             ContenttextView = itemView.findViewById(R.id.recyclerCommentContent);
-            itemView.setOnClickListener(this);
-        }
+            mDelete = itemView.findViewById(R.id.commentImageDelete);
+            //itemView.setOnClickListener(this);
+            mDelete.setOnClickListener(this);
+           /*     @Override
+                public void onClick(View v){
+         if(listener !=null){
+    int position = getAdapterPosition();
+    if(position !=RecyclerView.NO_POSITION) {
+        listener.onItemClick(position)
 
+    }
+}*/
+        }
         @Override
         public void onClick(View view) {
             if (mClickListener != null) {
                 mClickListener.onItemClick(view, getAdapterPosition(), data.get(getAdapterPosition()));
-
+          // mClickListener.onDeleteClick(getAdapterPosition());
             }
         }
     }
