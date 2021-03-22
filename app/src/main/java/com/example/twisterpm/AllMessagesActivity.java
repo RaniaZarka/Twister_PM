@@ -200,16 +200,13 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         //boolean rightSwipe = me1.getY() < me2.getY();
         Log.d("gesture", "onFling left: " + leftSwipe);
         if (leftSwipe) {
-            Intent intent = new Intent(this, CommentActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             //ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
             //Bundle options = activityOptionsCompat.toBundle();
             //startActivity(intent, options);
         }
-        /*else if(rightSwipe) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-        }*/
+
         return true; // done
     }
 }

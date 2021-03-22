@@ -22,9 +22,9 @@ public interface ApiServices {
     @POST("messages/{messageId}/comments")
     Call<Comments>saveCommentBody(@Path("messageId")int messageId, @Body Comments comment);
 
-    @POST("messages")
+   /* @POST("messages")
     @FormUrlEncoded
-    Call<Message> saveMessageBody(@Field("Content") String content, @Field("User") String user);
+    Call<Message> saveMessageBody(@Field("Content") String content, @Field("User") String user);*/
 
     @POST("messages")
     Call<Message>saveMessage(@Body Message message);
@@ -32,8 +32,8 @@ public interface ApiServices {
     @DELETE("messages/{id}")
     Call<Message> deleteMessage(@Path("id") int id);
 
-    @DELETE("messages/{id}")
-    Call<Comments> deleteComment(@Path("id") int id);
+    @DELETE("messages/{messageId}/comments/{commentId}")
+    Call<Comments> deleteComment(@Path("messageId") int messageId, @Path("commentId") int commentId);
 
 
 
