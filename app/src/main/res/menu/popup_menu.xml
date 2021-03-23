@@ -10,6 +10,7 @@
     <item
         android:id="@+id/popupDelete"
         android:title="Delete message"
+
         app:showAsAction="always">
     </item>
 

@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +40,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     public static final String Email = "user";
     FirebaseAuth fAuth;
     public static final String MESSAGE = "message";
+    RecyclerViewCommentAdapter adapter;
+    private Layout layout;
 
 
     @Override
@@ -50,45 +54,44 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
         message = findViewById(R.id.commentOriginalMessage);
         message.setText(theMessage.getContent() + "");
+
+        imageButton = findViewById(R.id.MessageimageButton);
+        imageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                PopupMenu popupMenu = new PopupMenu(CommentActivity.this, imageButton );
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                            LinearLayout layout = findViewById(R.id.allCommentsAddLayout);
+                            LinearLayout layout1 = findViewById(R.id.commentsDeleteAMessageLayout);
+                            switch (item.getItemId()) {
+                                case R.id.popupAdd:
+                                    layout.setVisibility(View.VISIBLE);
+                                    return true;
+                                case R.id.popupDelete:
+
+                                    layout1.setVisibility(View.VISIBLE);
+                                    layout.setVisibility(View.GONE);
+                                    return true;
+                                default:
+                                    return true;
+                            }
+                        }
+                });
+                popupMenu.show();
+            }
+        });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
         getAllComments();
-
-//        imageButton = imageButton.findViewById(R.id.imageButton);
-       // imageButton.setOnClickListener(this);
-
-        //popupMenu.setOnMenuItemClickListener(this);
-       /* FloatingActionButton fab = findViewById(R.id.commentFab);
-        fab.setOnClickListener( view -> {
-            new Intent(CommentActivity.this, AllMessagesActivity.class);
-            startActivity(intent);*/
-        // }
-        // );
-
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.popup_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.popupAdd:
-                LinearLayout layout = findViewById(R.id.allCommentsAddLayout);
-                layout.setVisibility(View.VISIBLE);
-                return true;
-
-            case R.id.popupDelete:
-              LinearLayout layout1 = findViewById(R.id.commentsDeleteAMessageLayout);
-                layout1.setVisibility(View.VISIBLE);
-                return true;
-                default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
 
     public void getAllComments() {
         int Id = theMessage.getId();
@@ -127,15 +130,16 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     private void populateRecycleView(List<Comments> allComments) {
         RecyclerView recyclerView = findViewById(R.id.commentRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewCommentAdapter adapter = new RecyclerViewCommentAdapter(this, allComments);
+        adapter = new RecyclerViewCommentAdapter(this, allComments);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener((view, position, item) -> {
-            Comments comments = (Comments) item;
-            Log.d("comment", item.toString());
-
-
-        });
-    }
+                    theComment = item;
+            if (position >= 0) {
+             DeleteComment(position);
+             Log.d("delete", "position is: "+ position);
+                    Log.d("delete", "the comment to delete is:  " + item.toString());}
+                });
+            }
 
     public void commentAdd(View view) {
         EditText input = findViewById(R.id.commentInput);
@@ -209,7 +213,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         Log.e("delete", "the problem is: " + problem);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Message> call, Throwable t) {
                     Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
@@ -220,22 +223,19 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
     }
 
-
-        public void commentDelete() {
-
+        public void DeleteComment(int position) {
         ApiServices services = ApiUtils.getMessagesService();
-         //theComment = new Comments();
-
-            int commentId = theComment.getId();
-            int messageId = theComment.getMessageId();
+        int commentId = theComment.getId();
             Log.d("delete", "the comment id is: " + commentId);
+            int messageId = theMessage.getId();
+            Log.d("delete", "the message id is: " + messageId);
             String CommentUser = theComment.getUser();
             Log.d("delete", "the comment user is: " + CommentUser);
             fAuth = FirebaseAuth.getInstance();
             String user = fAuth.getCurrentUser().getEmail();
             Log.d("delete", "the one deleting: " + user);
 
-            Call<Comments> deleteCommentCall = services.deleteComment(commentId);
+            Call<Comments> deleteCommentCall = services.deleteComment(adapter.getItem(position).getId(), messageId);
 
             if (CommentUser.equals(user)) {
                 deleteCommentCall.enqueue(new Callback<Comments>() {
@@ -243,9 +243,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     public void onResponse(Call<Comments> call, Response<Comments> response) {
 
                         if (response.isSuccessful()) {
-                            String message = "C deleted, id: " + theMessage.getId();
+                            String message =  ""  +theMessage.getId();
                             Toast.makeText(getBaseContext(), "Comment is deleted: ", Toast.LENGTH_SHORT).show();
-                            Log.d("delete", "the deleted comment is" + message);
+                            Log.d("delete", "the message id is " + message);
                             recreate();
                         } else {
                             String problem = call.request().url() + "\n" + response.code() + " " + response.message();
@@ -253,7 +253,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                             Log.e("delete", "the problem is: " + problem);
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Comments> call, Throwable t) {
                         //Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
@@ -263,14 +262,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 });
             }
             else
-                Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "you can only delete your own comment", Toast.LENGTH_SHORT).show();
         }
 
-
-
-    public void CommentBackBtn(View view){
-        finish();
-    }
 
     @Override
     public void onClick(View view) {
