@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/messageMessages"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="12dp"
+        android:padding="12dp"
+        android:textSize="18sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:textColor="@color/black"
+        android:id="@+id/welcome"/>
+
 
     <LinearLayout
     android:layout_width="match_parent"
@@ -42,14 +51,6 @@
         android:id="@+id/allMessagesForTest"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/messageMessages"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="12dp"
-            android:padding="12dp"
-            android:textSize="18sp" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messageRecyclerView"
             android:layout_width="match_parent"
@@ -59,7 +60,4 @@
             android:padding="10dp" />
     </LinearLayout>
 
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
