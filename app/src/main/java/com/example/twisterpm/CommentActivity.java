@@ -34,6 +34,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 {
     private TextView message;
     private TextView comment;
+    private TextView user;
     private Message theMessage;
     private Comments theComment;
     private ImageButton imageButton;
@@ -51,6 +52,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = getIntent();
         theMessage = (Message) intent.getSerializableExtra(MESSAGE);
+        user = findViewById(R.id.commentoriginalMessageEmail);
+        user.setText(theMessage.getUser() + "");
 
         message = findViewById(R.id.commentOriginalMessage);
         message.setText(theMessage.getContent() + "");
@@ -169,6 +172,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
                     // the following codes is to make an autorefresh so the added message shows right away
                     recreate();
+                    input.setText("");
                 } else {
                     String problem = "Problem: " + response.code() + " " + response.message();
                     Log.e("addMessage", problem);

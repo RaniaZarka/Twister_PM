@@ -31,10 +31,8 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     public static final String MESSAGE = "message";
     private TextView viewMessage;
     private View messagesLayout;
-    private Message messageToDelete;
     public static final String Email = "user";
     private GestureDetector mDetector;
-    RecyclerViewMessageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +40,13 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         setContentView(R.layout.activity_all_messages);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getAndShowAllMessages();
         mDetector = new GestureDetector(this, this);
         messagesLayout = findViewById(R.id.messageLayout);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
             startActivity(intent);
-        });
+        });*/
     }
 
     @Override
@@ -77,6 +74,10 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
                 return true;
             case R.id.action_settings:
                 Toast.makeText(this, "no settings added yet", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_signin:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -146,6 +147,9 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
                     Message newMessage = response.body();
                     Log.d(MESSAGE, "the new message is: " + newMessage.toString());
                     Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
+                    input.setText("");
+                    LinearLayout layout = findViewById(R.id.allMessagesAddLayout);
+                    layout.setVisibility(View.INVISIBLE);
                     // the following codes is to make an autorefresh so the added message shows right away
                     recreate();
                 } else {
