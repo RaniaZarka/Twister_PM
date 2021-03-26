@@ -5,25 +5,29 @@
     tools:context="twisterpm.AllMessagesActivity">
     <item
         android:id="@+id/action_profile"
-        android:icon="@android:drawable/presence_online"
+        android:icon="@drawable/baseline_account_circle_black_18dp"
         app:showAsAction="always"
+        app:iconTint="@color/white"
         android:title="Profile">
     </item>
     <item
         android:id="@+id/action_settings"
         app:showAsAction="never"
+        app:iconTint="@color/white"
         android:title="Settings">
     </item>
     <item
         android:id="@+id/action_add"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/baseline_add_black_18dp"
         android:title="Add"
+        app:iconTint="@color/white"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/bar_delete"
-        android:icon="@android:drawable/ic_input_delete"
-        android:title="Delete"
+        android:id="@+id/action_signin"
+        android:icon="@drawable/baseline_logout_black_18dp"
+        app:iconTint="@color/white"
+        android:title="Sign in"
         app:showAsAction="always"/>
 
 

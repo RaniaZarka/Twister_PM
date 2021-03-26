@@ -8,70 +8,156 @@
     android:background="@drawable/blueshade"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_marginTop="20dp"
+    <LinearLayout
+        android:id="@+id/allCommentsAddLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:id="@+id/commentOriginalMessage"/>
+        android:layout_weight="20"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/commentInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Insert your comment" />
+
+        <Button
+            android:id="@+id/CommentAddBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="commentAdd"
+            android:text="Add" />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="40"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/commentRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="87dp"
-            android:layout_margin="20dp"
-            android:padding="10dp" />
-    </LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="15"
-    android:orientation="vertical">
-    <EditText
-        android:id="@+id/commentInsertComment"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Insert your comment" />
-</LinearLayout>
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/commentoriginalMessageEmail"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:layout_weight="5"/>
+            <ImageButton
+                android:id="@+id/MessageimageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="16dp"
+                android:src="@drawable/dots" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/commentOriginalMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:layout_weight="5" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
-        android:orientation="horizontal">
+        android:layout_marginTop="15dp"
+        android:id="@+id/commentsDeleteAMessageLayout"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="@color/black"
+                android:text="Are you sure you want to delete the message" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/commentAdd"
-            android:layout_width="170dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:onClick="commentAddBtn"
-            android:text="Add Comment"
-            android:textSize="10dp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/commentDeleteBtn"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:onClick="commentDeleteBtn"
-            android:text="Delete Comment"
-            android:textSize="10dp" />
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="back"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Cancel" />
 
-        <Button
-            android:id="@+id/commentDeleteMessage"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:onClick="commentDeleteMessageBtn"
-            android:text="Delete message"
-            android:textSize="10dp" />
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="DeleteMessage"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Yes" />
+
+        </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:id="@+id/LayoutCommentDelete">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:onClick="commentDelete"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:onClick="Cancel"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/commentMessageComments"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="12dp"
+            android:padding="12dp"
+            android:textSize="14sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:layout_weight="90"
+            android:padding="10dp" />
+    </LinearLayout>
+
+
+
 
 </LinearLayout>
