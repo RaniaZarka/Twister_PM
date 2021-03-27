@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="TextView"
-        android:paddingLeft="40dp"
+        android:paddingLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="10dp" />
 

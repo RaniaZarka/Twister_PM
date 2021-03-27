@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -152,41 +153,50 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("addMessage", "the message id is: " + messageId);
 
         fAuth = FirebaseAuth.getInstance();
-        String user = fAuth.getCurrentUser().getEmail();
+        FirebaseUser userfb = fAuth.getCurrentUser();
         Log.d("addMessage", "the user is: " + user.toString());
-
+        if(userfb==null)
+        {
+          Intent intent = new Intent(this,MainActivity.class);
+          startActivity(intent);
+        }
+        else{
+            String user= fAuth.getCurrentUser().getEmail();
         ApiServices services = ApiUtils.getMessagesService();
         Comments comment = new Comments(messageId, content, user);
         Call<Comments> saveNewCommentCall = services.saveCommentBody(messageId, comment);
         Log.d("addMessage", "the whole Comment object is " + comment.toString());
-
-        if(content.isEmpty())
-        {  Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();}
-        else
-        saveNewCommentCall.enqueue(new Callback<Comments>() {
-            @Override
-            public void onResponse(Call<Comments> call, Response<Comments> response) {
-                if (response.isSuccessful()) {
-                    Comments newComment = response.body();
-                    Log.d("addMessage", "the new comment is: " + newComment.toString());
-                    Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
-                    // the following codes is to make an autorefresh so the added message shows right away
-                    recreate();
-                    input.setText("");
-                } else {
-                    String problem = "Problem: " + response.code() + " " + response.message();
-                    Log.e("addMessage", problem);
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+       if(user!=null){
+        if (content.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();
+        } else
+            saveNewCommentCall.enqueue(new Callback<Comments>() {
+                @Override
+                public void onResponse(Call<Comments> call, Response<Comments> response) {
+                    if (response.isSuccessful()) {
+                        Comments newComment = response.body();
+                        Log.d("addMessage", "the new comment is: " + newComment.toString());
+                        Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
+                        // the following codes is to make an autorefresh so the added message shows right away
+                        recreate();
+                        input.setText("");
+                    } else {
+                        String problem = "Problem: " + response.code() + " " + response.message();
+                        Log.e("addMessage", problem);
+                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Comments> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                Log.e("addMessage", t.getMessage());
-            }
-        });
-    }
+                @Override
+                public void onFailure(Call<Comments> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Log.e("addMessage", t.getMessage());
+                }
+            });}
+
+        //else
+        //{  Toast.makeText(getApplicationContext(), "You ned to sign in", Toast.LENGTH_SHORT).show();}
+    }}
 
     public void DeleteMessage(View view) {
         ApiServices services = ApiUtils.getMessagesService();

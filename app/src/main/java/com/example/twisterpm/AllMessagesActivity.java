@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +35,7 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     private View messagesLayout;
     public static final String Email = "user";
     private GestureDetector mDetector;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +45,16 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         setSupportActionBar(toolbar);
         mDetector = new GestureDetector(this, this);
         messagesLayout = findViewById(R.id.messageLayout);
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(AllMessagesActivity.this, MainActivity.class);
-            startActivity(intent);
-        });*/
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        fAuth = FirebaseAuth.getInstance();
+        String user= fAuth.getCurrentUser().getEmail();
+        TextView text = findViewById(R.id.welcome);
+        text.setText("welcome " + user);
         getAndShowAllMessages();
     }
 
@@ -87,8 +90,8 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     public void getAndShowAllMessages() {
         ApiServices services = ApiUtils.getMessagesService();
         Call<List<Message>> getAllMessagesCall = services.getAllMessages();
-        viewMessage = findViewById(R.id.messageMessages);
-        viewMessage.setText("");
+        //viewMessage = findViewById(R.id.messageMessages);
+        //viewMessage.setText("");
 
         getAllMessagesCall.enqueue(new Callback<List<Message>>() {
             @Override
@@ -132,39 +135,48 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     public void addMessage(View view) {
         EditText input = findViewById(R.id.messageInput);
         String content = input.getText().toString().trim();
-        String user = getIntent().getStringExtra(Email);
 
-        ApiServices services = ApiUtils.getMessagesService();
-        Message message = new Message(content, user);
-        Call<Message> saveNewMessageCall = services.saveMessage(message);
-        if(content.isEmpty())
-        {  Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();}
-        else
-        saveNewMessageCall.enqueue(new Callback<Message>() {
-            @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
-                if (response.isSuccessful()) {
-                    Message newMessage = response.body();
-                    Log.d(MESSAGE, "the new message is: " + newMessage.toString());
-                    Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
-                    input.setText("");
-                    LinearLayout layout = findViewById(R.id.allMessagesAddLayout);
-                    layout.setVisibility(View.INVISIBLE);
-                    // the following codes is to make an autorefresh so the added message shows right away
-                    recreate();
-                } else {
-                    String problem = "Problem: " + response.code() + " " + response.message();
-                    Log.e(MESSAGE, " the problem is: " + problem);
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            }
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser userfb = fAuth.getCurrentUser();
+        //Log.d("addMessage", "the user is: " + user.toString());
+        if (userfb == null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            String user = fAuth.getCurrentUser().getEmail();
 
-            @Override
-            public void onFailure(Call<Message> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                Log.e(MESSAGE, t.getMessage());
-            }
-        });
+            ApiServices services = ApiUtils.getMessagesService();
+            Message message = new Message(content, user);
+            Call<Message> saveNewMessageCall = services.saveMessage(message);
+            if (content.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();
+            } else
+                saveNewMessageCall.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        if (response.isSuccessful()) {
+                            Message newMessage = response.body();
+                            Log.d(MESSAGE, "the new message is: " + newMessage.toString());
+                            Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
+                            input.setText("");
+                            LinearLayout layout = findViewById(R.id.allMessagesAddLayout);
+                            layout.setVisibility(View.INVISIBLE);
+                            // the following codes is to make an autorefresh so the added message shows right away
+                            recreate();
+                        } else {
+                            String problem = "Problem: " + response.code() + " " + response.message();
+                            Log.e(MESSAGE, " the problem is: " + problem);
+                            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        Log.e(MESSAGE, t.getMessage());
+                    }
+                });
+        }
     }
 
     @Override
