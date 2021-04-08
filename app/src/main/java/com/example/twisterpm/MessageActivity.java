@@ -1,17 +1,12 @@
 package com.example.twisterpm;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -23,13 +18,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllMessagesActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class MessageActivity extends AppCompatActivity implements
+        GestureDetector.OnGestureListener,
+        View.OnTouchListener{
+
     public static final String MESSAGE = "message";
     private TextView viewMessage;
     private View messagesLayout;
@@ -40,21 +41,27 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_messages);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_message);
+        Toolbar toolbar = findViewById(R.id.toolbarToolbar);
         setSupportActionBar(toolbar);
         mDetector = new GestureDetector(this, this);
-        messagesLayout = findViewById(R.id.messageLayout);
+        //messagesLayout = findViewById(R.id.messageLayout);
 
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        fAuth = FirebaseAuth.getInstance();
-        String user= fAuth.getCurrentUser().getEmail();
         TextView text = findViewById(R.id.welcome);
-        text.setText("welcome " + user);
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser userfb = fAuth.getCurrentUser();
+        if (userfb == null) {
+            text.setText("welcome ");
+        } else {
+            String user= fAuth.getCurrentUser().getEmail();
+
+            text.setText("welcome, " + user);}
         getAndShowAllMessages();
     }
 
@@ -67,16 +74,21 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add:
-                LinearLayout layout = findViewById(R.id.allMessagesAddLayout);
-                layout.setVisibility(View.VISIBLE);
+            case R.id.action_home:
+                this.recreate();
                 return true;
             case R.id.action_profile:
+                fAuth = FirebaseAuth.getInstance();
+                FirebaseUser userfb = fAuth.getCurrentUser();
+                if (userfb == null) {
+                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                } else {
                 Intent intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
+                startActivity(intent);}
                 return true;
-            case R.id.action_settings:
-                Toast.makeText(this, "no settings added yet", Toast.LENGTH_SHORT).show();
+            case R.id.action_search:
+                Intent intent3 = new Intent(this, UsersActivity.class);
+                startActivity(intent3);
                 return true;
             case R.id.action_signin:
                 Intent intent1 = new Intent(this, MainActivity.class);
@@ -90,8 +102,6 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     public void getAndShowAllMessages() {
         ApiServices services = ApiUtils.getMessagesService();
         Call<List<Message>> getAllMessagesCall = services.getAllMessages();
-        //viewMessage = findViewById(R.id.messageMessages);
-        //viewMessage.setText("");
 
         getAllMessagesCall.enqueue(new Callback<List<Message>>() {
             @Override
@@ -138,10 +148,8 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
 
         fAuth = FirebaseAuth.getInstance();
         FirebaseUser userfb = fAuth.getCurrentUser();
-        //Log.d("addMessage", "the user is: " + user.toString());
         if (userfb == null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
         } else {
             String user = fAuth.getCurrentUser().getEmail();
 
@@ -180,6 +188,13 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     }
 
     @Override
+    public boolean onTouch(View view, MotionEvent motionEvent){
+        mDetector.onTouchEvent(motionEvent);
+        return true;
+
+    }
+
+    @Override
     public boolean onDown(MotionEvent motionEvent) {
         Log.d("gesture", "onDown");
         return true;
@@ -203,7 +218,8 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
     }
 
     @Override
-    public void onLongPress(MotionEvent motionEvent) {
+    public void onLongPress(MotionEvent motionEvent)
+    {
         Log.d("gesture", "onLongPress");
     }
 
@@ -226,3 +242,6 @@ public class AllMessagesActivity extends AppCompatActivity implements GestureDet
         return true; // done
     }
 }
+
+
+

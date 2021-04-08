@@ -1,6 +1,7 @@
 package com.example.twisterpm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,8 +31,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommentActivity extends AppCompatActivity implements View.OnClickListener
-        // implements PopupMenu.OnMenuItemClickListener
+public class CommentActivity extends AppCompatActivity  implements View.OnClickListener
+
 {
     private TextView message;
     private TextView comment;
@@ -50,6 +51,8 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        Toolbar toolbar = findViewById(R.id.toolbarToolbar);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         theMessage = (Message) intent.getSerializableExtra(MESSAGE);
@@ -97,6 +100,40 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         getAllComments();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.messages_bar, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                Intent intent2= new Intent(this, MessageActivity.class);
+                startActivity(intent2);
+                return true;
+            case R.id.action_profile:
+                fAuth = FirebaseAuth.getInstance();
+                FirebaseUser userfb = fAuth.getCurrentUser();
+                if (userfb == null) {
+                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(this, ProfileActivity.class);
+                    startActivity(intent);}
+                return true;
+            case R.id.action_search:
+                Intent intent3 = new Intent(this, UsersActivity.class);
+                startActivity(intent3);
+                return true;
+            case R.id.action_signin:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void getAllComments() {
         int Id = theMessage.getId();
         Log.d("addMessage", "the message id is: " + Id);
@@ -121,7 +158,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                     comment.setText(message);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Comments>> call, Throwable t) {
 
@@ -157,8 +193,9 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         Log.d("addMessage", "the user is: " + user.toString());
         if(userfb==null)
         {
-          Intent intent = new Intent(this,MainActivity.class);
-          startActivity(intent);
+          //Intent intent = new Intent(this,MainActivity.class);
+          //startActivity(intent);
+            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
         }
         else{
             String user= fAuth.getCurrentUser().getEmail();
@@ -186,16 +223,12 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                         Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Comments> call, Throwable t) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     Log.e("addMessage", t.getMessage());
                 }
             });}
-
-        //else
-        //{  Toast.makeText(getApplicationContext(), "You ned to sign in", Toast.LENGTH_SHORT).show();}
     }}
 
     public void DeleteMessage(View view) {
@@ -205,61 +238,28 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         String messageUser = theMessage.getUser();
         Log.d("delete", "the message user is: " + messageUser);
         fAuth = FirebaseAuth.getInstance();
-        String user = fAuth.getCurrentUser().getEmail();
-        Log.d("delete", "the email of the one deleting: " + user);
-        Call<Message> deleteMessageCall = services.deleteMessage(messageId);
-
-        if (messageUser.equals(user)) {
-            deleteMessageCall.enqueue(new Callback<Message>() {
-                @Override
-                public void onResponse(Call<Message> call, Response<Message> response) {
-
-                    if (response.isSuccessful()) {
-                        String message = "Message deleted, id: " + theMessage.getId();
-                        Toast.makeText(getBaseContext(), "Message is deleted: ", Toast.LENGTH_SHORT).show();
-                        Log.d("delete", "the deleted message is" + message);
-                        TextView text=findViewById(R.id.commentOriginalMessage);
-                        text.setText("");
-                        recreate();
-                    } else {
-                        String problem = call.request().url() + "\n" + response.code() + " " + response.message();
-                        Toast.makeText(getBaseContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                        Log.e("delete", "the problem is: " + problem);
-                    }
-                }
-                @Override
-                public void onFailure(Call<Message> call, Throwable t) {
-                    Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
-                    Log.e("delete", "Problem: " + t.getMessage());
-                }
-            });
-        } else
-            Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
-    }
-
-        public void DeleteComment(int position) {
-        ApiServices services = ApiUtils.getMessagesService();
-        int commentId = theComment.getId();
-            Log.d("delete", "the comment id is: " + commentId);
-            int messageId = theMessage.getId();
-            Log.d("delete", "the message id is: " + messageId);
-            String CommentUser = theComment.getUser();
-            Log.d("delete", "the comment user is: " + CommentUser);
-            fAuth = FirebaseAuth.getInstance();
+        FirebaseUser userfb = fAuth.getCurrentUser();
+        Log.d("addMessage", "the user is: " + user.toString());
+        if (userfb == null) {
+            //Intent intent = new Intent(this,MainActivity.class);
+            //startActivity(intent);
+            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+        } else {
             String user = fAuth.getCurrentUser().getEmail();
-            Log.d("delete", "the one deleting: " + user);
+            Log.d("delete", "the email of the one deleting: " + user);
+            Call<Message> deleteMessageCall = services.deleteMessage(messageId);
 
-            Call<Comments> deleteCommentCall = services.deleteComment(adapter.getItem(position).getId(), messageId);
-
-            if (CommentUser.equals(user)) {
-                deleteCommentCall.enqueue(new Callback<Comments>() {
+            if (messageUser.equals(user)) {
+                deleteMessageCall.enqueue(new Callback<Message>() {
                     @Override
-                    public void onResponse(Call<Comments> call, Response<Comments> response) {
+                    public void onResponse(Call<Message> call, Response<Message> response) {
 
                         if (response.isSuccessful()) {
-                            String message =  ""  +theMessage.getId();
-                            Toast.makeText(getBaseContext(), "Comment is deleted: ", Toast.LENGTH_SHORT).show();
-                            Log.d("delete", "the message id is " + message);
+                            String message = "Message deleted, id: " + theMessage.getId();
+                            Toast.makeText(getBaseContext(), "Message is deleted: ", Toast.LENGTH_SHORT).show();
+                            Log.d("delete", "the deleted message is" + message);
+                            TextView text = findViewById(R.id.commentoriginalMessageEmail);
+                            text.setText("");
                             recreate();
                         } else {
                             String problem = call.request().url() + "\n" + response.code() + " " + response.message();
@@ -267,16 +267,64 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                             Log.e("delete", "the problem is: " + problem);
                         }
                     }
+
                     @Override
-                    public void onFailure(Call<Comments> call, Throwable t) {
-                        //Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
-                        Toast.makeText(getBaseContext(), "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
                         Log.e("delete", "Problem: " + t.getMessage());
                     }
                 });
+            } else
+                Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+        public void DeleteComment(int position) {
+            ApiServices services = ApiUtils.getMessagesService();
+            int commentId = theComment.getId();
+            Log.d("delete", "the comment id is: " + commentId);
+            int messageId = theMessage.getId();
+            Log.d("delete", "the message id is: " + messageId);
+            String CommentUser = theComment.getUser();
+            Log.d("delete", "the comment user is: " + CommentUser);
+            fAuth = FirebaseAuth.getInstance();
+            FirebaseUser userfb = fAuth.getCurrentUser();
+            Log.d("addMessage", "the user is: " + user.toString());
+            if (userfb == null) {
+                //Intent intent = new Intent(this,MainActivity.class);
+                //startActivity(intent);
+                Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+            } else {
+                String user = fAuth.getCurrentUser().getEmail();
+                Log.d("delete", "the one deleting: " + user);
+                Call<Comments> deleteCommentCall = services.deleteComment(messageId, adapter.getItem(position).getId());
+                if (CommentUser.equals(user)) {
+                    deleteCommentCall.enqueue(new Callback<Comments>() {
+                        @Override
+                        public void onResponse(Call<Comments> call, Response<Comments> response) {
+
+                            if (response.isSuccessful()) {
+                                String message = "" + theMessage.getId();
+                                Toast.makeText(getBaseContext(), "Comment is deleted: ", Toast.LENGTH_SHORT).show();
+                                Log.d("delete", "the message id is " + message);
+                                recreate();
+                            } else {
+                                String problem = call.request().url() + "\n" + response.code() + " " + response.message();
+                                Toast.makeText(getBaseContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                                Log.e("delete", "the problem is: " + problem);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Comments> call, Throwable t) {
+                            //Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("delete", "Problem: " + t.getMessage());
+                        }
+                    });
+                } else
+                    Toast.makeText(getBaseContext(), "you can only delete your own comment", Toast.LENGTH_SHORT).show();
             }
-            else
-                Toast.makeText(getBaseContext(), "you can only delete your own comment", Toast.LENGTH_SHORT).show();
         }
 
 

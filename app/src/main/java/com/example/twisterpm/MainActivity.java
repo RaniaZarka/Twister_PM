@@ -2,11 +2,14 @@ package com.example.twisterpm;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -29,16 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-      /*  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            Intent i = new Intent(MainActivity.this, AllMessagesActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-        } else {
-            // User is signed out
-            Log.d(TAG, "onAuthStateChanged:signed_out");
-        }*/
+        Toolbar toolbar = findViewById(R.id.toolbarToolbar);
+        setSupportActionBar(toolbar);
+
     }
 
     // we can have all these in the onStart method or we can create a login method
@@ -52,6 +48,40 @@ public class MainActivity extends AppCompatActivity {
             reload();
         }*/
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.messages_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+            Intent intent2= new Intent(this, MessageActivity.class);
+            startActivity(intent2);
+                return true;
+            case R.id.action_profile:
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser userfb = mAuth.getCurrentUser();
+                if (userfb == null) {
+                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(this, ProfileActivity.class);
+                    startActivity(intent);}
+                return true;
+            case R.id.action_search:
+                Intent intent3 = new Intent(this, UsersActivity.class);
+                startActivity(intent3);
+                return true;
+            case R.id.action_signin:
+                this.recreate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
     public void hideKeyboard(View view) {
@@ -79,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
                                 //updateUI(user);
                                 TextView text=findViewById(R.id.mainWelcome);
                                 text.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(getBaseContext(), AllMessagesActivity.class);
-                                intent.putExtra(AllMessagesActivity.Email, email);
+                                Intent intent = new Intent(getBaseContext(), MessageActivity.class);
+                                intent.putExtra(MessageActivity.Email, email);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="twisterpm.AllMessagesActivity">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/baseline_home_black_18dp"
+        android:title="Add"
+        app:iconTint="@color/white"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/baseline_account_circle_black_18dp"
@@ -11,17 +18,13 @@
         android:title="Profile">
     </item>
     <item
-        android:id="@+id/action_settings"
-        app:showAsAction="never"
+        android:id="@+id/action_search"
+        app:showAsAction="always"
+        android:icon="@drawable/person_search"
         app:iconTint="@color/white"
-        android:title="Settings">
+        android:title="Search">
     </item>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/baseline_add_black_18dp"
-        android:title="Add"
-        app:iconTint="@color/white"
-        app:showAsAction="always"/>
+
 
     <item
         android:id="@+id/action_signin"

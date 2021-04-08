@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blueshade"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context=".MessageActivity">
 
+    <include layout="@layout/toolbar_layout"/>
 
     <TextView
         android:id="@+id/messageMessages"
@@ -23,11 +25,10 @@
 
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/allMessagesAddLayout"
-    android:visibility="gone"
-    android:orientation="horizontal">
+        android:orientation="horizontal">
         <EditText
             android:id="@+id/messageInput"
             android:layout_width="0dp"
@@ -43,7 +44,7 @@
             android:onClick="addMessage"
             android:text="Add" />
 
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -56,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="66"
-            android:layout_margin="20dp"
-            android:padding="10dp" />
+            />
     </LinearLayout>
+
 
 </LinearLayout>

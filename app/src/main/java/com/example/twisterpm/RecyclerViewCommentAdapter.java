@@ -102,15 +102,12 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView UsertextView, ContenttextView;
-        //final ImageView mDelete;
         final ImageButton button;
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             UsertextView = itemView.findViewById(R.id.recyclerCommentUser);
             ContenttextView = itemView.findViewById(R.id.recyclerCommentContent);
-           // mDelete = itemView.findViewById(R.id.commentImageDelete);
             button= (ImageButton) itemView.findViewById(R.id.commentImageDelete);
-
             button.setOnClickListener(this);
             //itemView.setOnClickListener(this);
            // mDelete.setOnClickListener(this);

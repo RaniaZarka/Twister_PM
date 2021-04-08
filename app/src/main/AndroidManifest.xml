@@ -12,20 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwisterPM"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity
-            android:name=".AllMessagesActivity"
+        <activity android:name=".UsersActivity"></activity>
+        <activity android:name=".MessageActivity">
             android:label="Twister PM"
-            android:theme="@style/Theme.TwisterPM.NoActionBar" >
+            android:theme="@style/Theme.TwisterPM.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".CommentActivity" />
-        <activity android:name=".MainActivity"/>
-
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

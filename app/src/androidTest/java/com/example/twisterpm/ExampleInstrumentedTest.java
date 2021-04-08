@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Rule
-    public ActivityScenarioRule rule = new ActivityScenarioRule<>(AllMessagesActivity.class);
+    public ActivityScenarioRule rule = new ActivityScenarioRule<>(MessageActivity.class);
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -49,22 +49,22 @@ public class ExampleInstrumentedTest {
     @Test
     public void addMessageButtonTest() {
 
-        onView(withId(R.id.action_add)).perform(click());
+        onView(withId(R.id.AllMessagesAddBtn)).perform(click());
         onView(withId(R.id.allMessagesAddLayout)).check(matches(isDisplayed()));
     }
     @Test
-    public void profilButtonTest(){
+    public void profilActionBarButtonTest(){
         onView(withId(R.id.action_profile)).perform(click());
         onView(withId(R.id.ProfileText)).check(matches(isDisplayed()));
     }
 
 
     @Test
-     public void backBtnTest(){
-         onView(withId(R.id.fab)).perform(click());
-         onView(withId(R.id.mainSignInbtn)).check(matches(isDisplayed()));
+     public void searchActinBarBtnTest(){
+         onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.profileMessage)).check(matches(isDisplayed()));
          // below I am checking the press back of the phone not the method
-         pressBack();
+        // pressBack();
      }
 
      @Test
