@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="Insert your comment" />
+            android:hint="@string/IsertYourComment" />
 
         <Button
             android:id="@+id/CommentAddBtn"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="commentAdd"
-            android:text="Add" />
+            android:text="@string/Add" />
 
     </LinearLayout>
     <LinearLayout
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:textColor="@color/black"
-            android:text="Are you sure you want to delete the message" />
+            android:text="@string/AreYouSure" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +99,7 @@
                 android:onClick="back"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="Cancel" />
+                android:text="@string/Cancel" />
 
             <Button
                 android:layout_width="100dp"
@@ -107,7 +107,7 @@
                 android:onClick="DeleteMessage"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="Yes" />
+                android:text="@string/Yes" />
 
         </LinearLayout>
 

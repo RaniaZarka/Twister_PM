@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,7 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommentActivity extends AppCompatActivity  implements View.OnClickListener
+public class CommentActivity extends AppCompatActivity  implements
+        View.OnClickListener,
+        GestureDetector.OnGestureListener
 
 {
     private TextView message;
@@ -45,7 +49,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
     public static final String MESSAGE = "message";
     RecyclerViewCommentAdapter adapter;
     private Layout layout;
-
+    private GestureDetector mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
         setContentView(R.layout.activity_comment);
         Toolbar toolbar = findViewById(R.id.toolbarToolbar);
         setSupportActionBar(toolbar);
+        mDetector = new GestureDetector(this, this);
 
         Intent intent = getIntent();
         theMessage = (Message) intent.getSerializableExtra(MESSAGE);
@@ -116,7 +121,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
                 fAuth = FirebaseAuth.getInstance();
                 FirebaseUser userfb = fAuth.getCurrentUser();
                 if (userfb == null) {
-                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(this, ProfileActivity.class);
                     startActivity(intent);}
@@ -153,7 +158,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
                     Log.d("addMessage", "list of all comments: " + allComments.toString());
                     populateRecycleView(allComments);
                 } else {
-                    String message = "Problem " + response.code() + " " + response.message();
+                    String message = getResources().getString(R.string.Problem)+" "+ response.code() + " " + response.message();
                     Log.d("addMessage", "problem showing: " + message);
                     comment.setText(message);
                 }
@@ -195,7 +200,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
         {
           //Intent intent = new Intent(this,MainActivity.class);
           //startActivity(intent);
-            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
         }
         else{
             String user= fAuth.getCurrentUser().getEmail();
@@ -205,7 +210,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
         Log.d("addMessage", "the whole Comment object is " + comment.toString());
        if(user!=null){
         if (content.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.NoComment), Toast.LENGTH_SHORT).show();
         } else
             saveNewCommentCall.enqueue(new Callback<Comments>() {
                 @Override
@@ -213,19 +218,19 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
                     if (response.isSuccessful()) {
                         Comments newComment = response.body();
                         Log.d("addMessage", "the new comment is: " + newComment.toString());
-                        Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Successfullyadded), Toast.LENGTH_SHORT).show();
                         // the following codes is to make an autorefresh so the added message shows right away
                         recreate();
                         input.setText("");
                     } else {
-                        String problem = "Problem: " + response.code() + " " + response.message();
+                        String problem = getResources().getString(R.string.Problem)+" "+ response.code() + " " + response.message();
                         Log.e("addMessage", problem);
-                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                     }
                 }
                 @Override
                 public void onFailure(Call<Comments> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                     Log.e("addMessage", t.getMessage());
                 }
             });}
@@ -243,7 +248,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
         if (userfb == null) {
             //Intent intent = new Intent(this,MainActivity.class);
             //startActivity(intent);
-            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
         } else {
             String user = fAuth.getCurrentUser().getEmail();
             Log.d("delete", "the email of the one deleting: " + user);
@@ -256,26 +261,26 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
 
                         if (response.isSuccessful()) {
                             String message = "Message deleted, id: " + theMessage.getId();
-                            Toast.makeText(getBaseContext(), "Message is deleted: ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), getResources().getString(R.string.MessageDeleted), Toast.LENGTH_SHORT).show();
                             Log.d("delete", "the deleted message is" + message);
                             TextView text = findViewById(R.id.commentoriginalMessageEmail);
                             text.setText("");
                             recreate();
                         } else {
                             String problem = call.request().url() + "\n" + response.code() + " " + response.message();
-                            Toast.makeText(getBaseContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                             Log.e("delete", "the problem is: " + problem);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Message> call, Throwable t) {
-                        Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(view, getResources().getString(R.string.Problem)+" " + t.getMessage(), Snackbar.LENGTH_LONG).show();
                         Log.e("delete", "Problem: " + t.getMessage());
                     }
                 });
             } else
-                Toast.makeText(getBaseContext(), "you can only delete your own message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.OnlyOwnMessage), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -291,9 +296,7 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
             FirebaseUser userfb = fAuth.getCurrentUser();
             Log.d("addMessage", "the user is: " + user.toString());
             if (userfb == null) {
-                //Intent intent = new Intent(this,MainActivity.class);
-                //startActivity(intent);
-                Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
             } else {
                 String user = fAuth.getCurrentUser().getEmail();
                 Log.d("delete", "the one deleting: " + user);
@@ -305,12 +308,12 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
 
                             if (response.isSuccessful()) {
                                 String message = "" + theMessage.getId();
-                                Toast.makeText(getBaseContext(), "Comment is deleted: ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), getResources().getString(R.string.CommentDeleted), Toast.LENGTH_SHORT).show();
                                 Log.d("delete", "the message id is " + message);
                                 recreate();
                             } else {
                                 String problem = call.request().url() + "\n" + response.code() + " " + response.message();
-                                Toast.makeText(getBaseContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                                 Log.e("delete", "the problem is: " + problem);
                             }
                         }
@@ -318,23 +321,77 @@ public class CommentActivity extends AppCompatActivity  implements View.OnClickL
                         @Override
                         public void onFailure(Call<Comments> call, Throwable t) {
                             //Snackbar.make(view, "Problem: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
-                            Toast.makeText(getBaseContext(), "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), getResources().getString(R.string.Wrong) + t.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.e("delete", "Problem: " + t.getMessage());
                         }
                     });
                 } else
-                    Toast.makeText(getBaseContext(), "you can only delete your own comment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.OnlyOwnComment), Toast.LENGTH_SHORT).show();
             }
         }
-
-
-    @Override
-    public void onClick(View view) {
-
-    }
 
     public void back(View view) {
         LinearLayout layout1 = findViewById(R.id.commentsDeleteAMessageLayout);
         layout1.setVisibility(View.GONE);
     }
+
+@Override
+public boolean onTouchEvent(MotionEvent event){
+        return mDetector.onTouchEvent(event);
+}
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        Log.d("gesture", "onDown");
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+        Log.d("gesture", "onShowPress");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        Log.d("gesture", "onSingleTapUp");
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        Log.d("gesture", "onScroll");
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent)
+    {
+        Log.d("gesture", "onLongPress");
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent me1, MotionEvent me2, float v1, float v2) {
+        //Toast.makeText(this, "onFling", Toast.LENGTH_SHORT).show();
+        Log.d("gesture", "onFling " + me1.toString() + "::::" + me2.toString());
+
+        boolean leftSwipe = me1.getX() > me2.getX();
+        //boolean rightSwipe = me1.getY() < me2.getY();
+        Log.d("gesture", "onFling left: " + leftSwipe);
+        if (leftSwipe) {
+            Intent intent = new Intent(this, MessageActivity.class);
+            startActivity(intent);
+            //ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+            //Bundle options = activityOptionsCompat.toBundle();
+            //startActivity(intent, options);
+        }
+
+        return true; // done
+    }
+
+
 }

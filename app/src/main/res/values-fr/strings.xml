@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twister PM</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="welcome"> Bienvenue, </string>
+    <string name="NotSignedIn"> Vous devez d abord vous connecter </string>
+    <string name="NoMessage"> Vous n avez pas rédigé de message! </string>
+    <string name="Successfullyadded">Ajouté avec succès</string>
+    <string name="Wrong">Un problème est survenu!</string>
+    <string name="Problem">Problème: </string>
+    <string name="NoComment">Vous n avez pas rédigé de commentaire!</string>
+    <string name="MessageDeleted"> Le message est supprimé </string>
+    <string name="OnlyOwnMessage"> Vous ne pouvez supprimer que votre propre message! </string>
+    <string name="CommentDeleted">Le commentaire est supprimé </string>
+    <string name="OnlyOwnComment"> Vous ne pouvez supprimer que votre propre commentaire! </string>
+    <string name="Add">Ajouter</string>
+    <string name="InsertYourMessage"> Insérez votre message </string>
+    <string name="IsertYourComment"> Insérez votre commentaire </string>
+    <string name="AreYouSure">Êtes-vous sûr de vouloir supprimer le message</string>
+    <string name="Cancel">Annuler</string>
+    <string name="Yes">Oui</string>
+    <string name="AddComment">Ajouter un commentaire</string>
+    <string name="DeleteMessage">Supprimer le message</string>
+    <string name="MyProfile">Mon profil: </string>
+    <string name="Email">E-mail</string>
+    <string name="Password">Mot de passe</string>
+    <string name="Register">INSCRIRE</string>
+    <string name="Signin">CONNECTER</string>
+    <string name="SignOut">DÉCONNECTER</string>
+    <string name="AllFields">Tous les champs doivent être remplis </string>
+    <string name="Welcome">Bienvenue chez Twister PM </string>
+    <string name="PleaseSignIn"> Veuillez vous connecter </string>
+    <string name="YourAreSignedOut">Vous êtes déconnecté</string>
+    <string name="Language">Language</string>
+    <string name="EnterAUser">Nom de l utilisateur</string>
+    <string name="Search">Rechercher</string>
+
+
+</resources>
