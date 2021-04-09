@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser userfb = mAuth.getCurrentUser();
                 if (userfb == null) {
-                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(this, ProfileActivity.class);
                     startActivity(intent);}
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         String email = emailView.getText().toString().trim();
         String password = paswordView.getText().toString().trim();
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "All fields must be filled", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),  getResources().getString(R.string.AllFields), Toast.LENGTH_LONG).show();
         } else {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "All fields must be filled", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.AllFields), Toast.LENGTH_LONG).show();
         } else {
 
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                                 //text.setText(user.getEmail());
                                // text.setVisibility(View.VISIBLE);
                                 //updateUI(user);
-                                Toast.makeText(getApplicationContext(), "Welcome to Twister PM" + user.getEmail() + ". Please sign in", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.Welcome)+" "+  user.getEmail() +". "+ getResources().getString(R.string.PleaseSignIn), Toast.LENGTH_LONG).show();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("UserApple", "createUserWithEmail:failure", task.getException());
@@ -163,6 +163,6 @@ public class MainActivity extends AppCompatActivity {
     public void logout(View view) {
 
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(getApplicationContext(), " You are signe out!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.YourAreSignedOut), Toast.LENGTH_LONG).show();
     }
 }

@@ -1,11 +1,17 @@
 package com.example.twisterpm;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -22,33 +28,31 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity implements
-        GestureDetector.OnGestureListener,
+
         View.OnTouchListener{
 
     public static final String MESSAGE = "message";
     private TextView viewMessage;
     private View messagesLayout;
     public static final String Email = "user";
-    private GestureDetector mDetector;
+
     FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //LoadLocale();
         setContentView(R.layout.activity_message);
         Toolbar toolbar = findViewById(R.id.toolbarToolbar);
         setSupportActionBar(toolbar);
-        mDetector = new GestureDetector(this, this);
-        //messagesLayout = findViewById(R.id.messageLayout);
-
     }
-
 
     @Override
     protected void onStart() {
@@ -57,11 +61,11 @@ public class MessageActivity extends AppCompatActivity implements
         fAuth = FirebaseAuth.getInstance();
         FirebaseUser userfb = fAuth.getCurrentUser();
         if (userfb == null) {
-            text.setText("welcome ");
+            text.setText(getResources().getString(R.string.welcome));
         } else {
             String user= fAuth.getCurrentUser().getEmail();
 
-            text.setText("welcome, " + user);}
+            text.setText(getResources().getString(R.string.welcome) +" " +  user);}
         getAndShowAllMessages();
     }
 
@@ -81,7 +85,7 @@ public class MessageActivity extends AppCompatActivity implements
                 fAuth = FirebaseAuth.getInstance();
                 FirebaseUser userfb = fAuth.getCurrentUser();
                 if (userfb == null) {
-                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn) , Toast.LENGTH_SHORT).show();
                 } else {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);}
@@ -94,6 +98,7 @@ public class MessageActivity extends AppCompatActivity implements
                 Intent intent1 = new Intent(this, MainActivity.class);
                 startActivity(intent1);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -113,7 +118,7 @@ public class MessageActivity extends AppCompatActivity implements
                     Log.d(MESSAGE, allMessages.toString());
                     populateRecycleView(allMessages);
                 } else {
-                    String message = "Problem " + response.code() + " " + response.message();
+                    String message = getResources().getString(R.string.Problem)+" " + response.code() + " " + response.message();
                     Log.d(MESSAGE, "the problem is: " + message);
                     viewMessage.setText(message);
                 }
@@ -149,7 +154,7 @@ public class MessageActivity extends AppCompatActivity implements
         fAuth = FirebaseAuth.getInstance();
         FirebaseUser userfb = fAuth.getCurrentUser();
         if (userfb == null) {
-            Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
         } else {
             String user = fAuth.getCurrentUser().getEmail();
 
@@ -157,7 +162,7 @@ public class MessageActivity extends AppCompatActivity implements
             Message message = new Message(content, user);
             Call<Message> saveNewMessageCall = services.saveMessage(message);
             if (content.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "You didnt write a message!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.NoMessage), Toast.LENGTH_SHORT).show();
             } else
                 saveNewMessageCall.enqueue(new Callback<Message>() {
                     @Override
@@ -165,81 +170,79 @@ public class MessageActivity extends AppCompatActivity implements
                         if (response.isSuccessful()) {
                             Message newMessage = response.body();
                             Log.d(MESSAGE, "the new message is: " + newMessage.toString());
-                            Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Successfullyadded), Toast.LENGTH_SHORT).show();
                             input.setText("");
                             LinearLayout layout = findViewById(R.id.allMessagesAddLayout);
                             layout.setVisibility(View.INVISIBLE);
                             // the following codes is to make an autorefresh so the added message shows right away
                             recreate();
                         } else {
-                            String problem = "Problem: " + response.code() + " " + response.message();
+                            String problem = getResources().getString(R.string.Problem)+" " + response.code() + " " + response.message();
                             Log.e(MESSAGE, " the problem is: " + problem);
-                            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Message> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Wrong), Toast.LENGTH_SHORT).show();
                         Log.e(MESSAGE, t.getMessage());
                     }
                 });
         }
     }
 
+   /* private void showChangeLanguageDialog(){
+        final String[] listItems= {"Francais", "English" ,  "Dansk"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setTitle("Choose Language");
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(i==0){
+                    setLocale("fr");
+                    recreate();
+                }
+               else if(i==1){
+                    setLocale("En");
+                    recreate();
+                }
+              else  if(i==2){
+                    setLocale("da-rDK");
+                    recreate();
+                }
+              //dismiss alert dialog when language is selected 
+              dialogInterface.dismiss();
+            }
+        });
+        AlertDialog mDialog =mBuilder.create();
+        mDialog.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // save data to shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences(" settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+    // load languages saved in shared preferences
+
+    public void LoadLocale(){
+
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE );
+        String language= prefs.getString("My_Lang", "");
+        setLocale(language);
+    }*/
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent){
-        mDetector.onTouchEvent(motionEvent);
         return true;
 
-    }
-
-    @Override
-    public boolean onDown(MotionEvent motionEvent) {
-        Log.d("gesture", "onDown");
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
-        Log.d("gesture", "onShowPress");
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent motionEvent) {
-        Log.d("gesture", "onSingleTapUp");
-        return true;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        Log.d("gesture", "onScroll");
-        return true;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent motionEvent)
-    {
-        Log.d("gesture", "onLongPress");
-    }
-
-    @Override
-    public boolean onFling(MotionEvent me1, MotionEvent me2, float v1, float v2) {
-        //Toast.makeText(this, "onFling", Toast.LENGTH_SHORT).show();
-        Log.d("gesture", "onFling " + me1.toString() + "::::" + me2.toString());
-
-        boolean leftSwipe = me1.getX() > me2.getX();
-        //boolean rightSwipe = me1.getY() < me2.getY();
-        Log.d("gesture", "onFling left: " + leftSwipe);
-        if (leftSwipe) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            //ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
-            //Bundle options = activityOptionsCompat.toBundle();
-            //startActivity(intent, options);
-        }
-
-        return true; // done
     }
 }
 

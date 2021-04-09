@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twister PM</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="welcome"> Velkommen, </string>
+    <string name="NotSignedIn"> Du skal logge ind først </string>
+    <string name="NoMessage"> Du skrev ikke en besked! </string>
+    <string name="Successfullyadded">Føjet med succes</string>
+    <string name="Wrong">Noget gik galt!</string>
+    <string name="Problem">Problem: </string>
+    <string name="NoComment">Du skrev ikke en kommentar!</string>
+    <string name="MessageDeleted">Beskeden slettes</string>
+    <string name="OnlyOwnMessage"> Du kan kun slette din egen besked! </string>
+    <string name="CommentDeleted">Kommentar slettes</string>
+    <string name="OnlyOwnComment"> Du kan kun slette din egen kommentar! </string>
+    <string name="Add">Tilføje</string>
+    <string name="InsertYourMessage"> Indsæt din besked</string>
+    <string name="IsertYourComment"> Indsæt din kommentar </string>
+    <string name="AreYouSure">Er du sikker på, at du vil slette beskeden</string>
+    <string name="Cancel">Afbestille</string>
+    <string name="Yes">Ja</string>
+    <string name="AddComment">Tilføj kommentar</string>
+    <string name="DeleteMessage">Slet besked</string>
+    <string name="MyProfile">Min profil: </string>
+    <string name="Email">E-mail</string>
+    <string name="Password">Adgangskode</string>
+    <string name="Register">TILMELD</string>
+    <string name="Signin">LOG IND</string>
+    <string name="SignOut">LOG UD</string>
+    <string name="AllFields">Alle felter skal udfyldes </string>
+    <string name="Welcome">Velkommen til Twister PM </string>
+    <string name="PleaseSignIn"> Du skal log ind</string>
+    <string name="YourAreSignedOut">Du er logget ud</string>
+    <string name="Language">Sprog</string>
+    <string name="EnterAUser">Indtast et brugernavn</string>
+    <string name="Search">Søg</string>
+
+
+</resources>

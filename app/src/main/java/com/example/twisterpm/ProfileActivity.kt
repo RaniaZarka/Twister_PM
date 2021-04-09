@@ -27,7 +27,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         val toolbar = findViewById<Toolbar>(R.id.toolbarToolbar)
         setSupportActionBar(toolbar)
-        ProfileText.setText("My profile: " + user)
+        ProfileText.setText( getResources().getString(R.string.MyProfile) +" "+ user)
     }
 
     override fun onStart() {

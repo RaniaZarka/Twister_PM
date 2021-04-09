@@ -1,12 +1,44 @@
 <resources>
     <string name="app_name">Twister PM</string>
-    <string name="title_activity_all_messages">AllMessagesActivity</string>
+    <string name="title_activity_message">MessageActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="welcome"> Welcome, </string>
+    <string name="NotSignedIn"> You need to sign in first </string>
+    <string name="NoMessage"> You didnt write a message! </string>
+    <string name="Successfullyadded">Successfully added</string>
+    <string name="Wrong">Something went wrong!</string>
+    <string name="Problem">Problem: </string>
+    <string name="NoComment">You didnt write a comment!</string>
+    <string name="MessageDeleted">Message is deleted</string>
+    <string name="OnlyOwnMessage"> You can only delete your own message! </string>
+    <string name="CommentDeleted">Comment is deleted </string>
+    <string name="OnlyOwnComment"> You can only delete your own comment! </string>
+    <string name="Add">Add</string>
+    <string name="InsertYourMessage"> Insert your message </string>
+    <string name="IsertYourComment"> Insert your comment </string>
+    <string name="AreYouSure">Are you sure you want to delete the message</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Yes">Yes</string>
+    <string name="AddComment">Add comment</string>
+    <string name="DeleteMessage">Delete Message</string>
+    <string name="MyProfile">My profile: </string>
+    <string name="Email">E-mail</string>
+    <string name="Password">Password</string>
+    <string name="Register">REGISTER</string>
+    <string name="Signin">SIGN IN</string>
+    <string name="SignOut">SIGN OUT</string>
+    <string name="AllFields">All fields must be filled </string>
+    <string name="Welcome">Welcome to Twister PM </string>
+    <string name="PleaseSignIn"> Please sign in </string>
+    <string name="YourAreSignedOut">You are signed out</string>
+    <string name="Language">Language</string>
+    <string name="EnterAUser">Enter a user</string>
+    <string name="Search">Search</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
 </resources>

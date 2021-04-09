@@ -51,7 +51,7 @@ public class UsersActivity extends AppCompatActivity {
                 fAuth = FirebaseAuth.getInstance();
                 FirebaseUser userfb = fAuth.getCurrentUser();
                 if (userfb == null) {
-                    Toast.makeText(getApplicationContext(), "You need to sign in first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotSignedIn), Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(this, ProfileActivity.class);
                     startActivity(intent);}
@@ -76,7 +76,7 @@ public class UsersActivity extends AppCompatActivity {
         String user = input.getText().toString().trim();
 
         if (user.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Enter a user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.EnterAUser), Toast.LENGTH_SHORT).show();
         } else if(user==null) {
             Toast.makeText(getApplicationContext(), "User does not exist", Toast.LENGTH_SHORT).show();
         }
@@ -94,7 +94,7 @@ public class UsersActivity extends AppCompatActivity {
                         Log.d("users", allMessages.toString());
                         populateRecycleView(allMessages);
                     } else {
-                        String message = "Problem " + response.code() + " " + response.message();
+                        String message = getResources().getString(R.string.Problem) + response.code() + " " + response.message();
                         Log.d("users", "the problem is: " + message);
 
                     }

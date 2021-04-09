@@ -22,7 +22,7 @@
         app:showAsAction="always"
         android:icon="@drawable/person_search"
         app:iconTint="@color/white"
-        android:title="Search">
+        android:title="@string/Search">
     </item>
 
 
@@ -30,8 +30,10 @@
         android:id="@+id/action_signin"
         android:icon="@drawable/baseline_logout_black_18dp"
         app:iconTint="@color/white"
-        android:title="Sign in"
+        android:title="@string/Signin"
         app:showAsAction="always"/>
+
+
 
 
 

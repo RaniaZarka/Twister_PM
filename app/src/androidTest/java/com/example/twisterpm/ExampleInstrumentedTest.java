@@ -58,7 +58,6 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.ProfileText)).check(matches(isDisplayed()));
     }
 
-
     @Test
      public void searchActinBarBtnTest(){
          onView(withId(R.id.action_search)).perform(click());
@@ -66,7 +65,6 @@ public class ExampleInstrumentedTest {
          // below I am checking the press back of the phone not the method
         // pressBack();
      }
-
      @Test
      // test if recyclerview comes into view when the activity is launched
     public void ListOfMessages_Visible_onLaunch(){
