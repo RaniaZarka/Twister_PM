@@ -1,0 +1,20 @@
+<application>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/layout/fragment_add_message.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/layout/toolbar_layout.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/menu/messages_bar.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/activity_message.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/toolbar_layout.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/menu/messages_bar.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/menu/popup_menu.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/Twister_Mandatory_Assignment/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/Twister_Mandatory_Assignment/app/src/main/res/layout/content_main.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+</application>
