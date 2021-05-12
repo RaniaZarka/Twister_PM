@@ -46,6 +46,10 @@
           <option name="url" value="https://github.com/learntodroid/MVVM-REST-API.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/andersbor/AndroidCollectWordsSinglePage.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\Users\rania\AndroidStudioProjects" />
