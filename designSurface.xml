@@ -5,6 +5,7 @@
         <entry key="..\:/Users/rania/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_students_details.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TryNavigation/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout-land/fragment_sign_in_out.xml" value="0.21428571428571427" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/activity_main.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/comments_recycler.xml" value="0.12259371833839919" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_add_message.xml" value="0.19583333333333333" />
@@ -12,7 +13,7 @@
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_comments.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_messages.xml" value="0.1953125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_register.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_sign_in_out.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/fragment_sign_in_out.xml" value="0.15760869565217392" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/message_recycler.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/layout/toolbar_layout.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments - TryMVVM/app/src/main/res/menu/messages_bar.xml" value="0.253125" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/layout/fragment_messages.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/layout/toolbar_layout.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterFragments/app/src/main/res/menu/messages_bar.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout-land/activity_main.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/activity_comment.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/activity_main.xml" value="0.10733695652173914" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/layout/activity_message.xml" value="0.1" />
