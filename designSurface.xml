@@ -46,7 +46,10 @@
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/menu/messages_bar.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPM2/app/src/main/res/menu/popup_menu.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/fragment_message.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/comments_recycler.xml" value="0.10486322188449848" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/fragment_comment.xml" value="0.10486322188449848" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/fragment_message.xml" value="0.10486322188449848" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/message_recycler.xml" value="0.10486322188449848" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Twister_Mandatory_Assignment/app/src/main/res/layout/activity_login.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Twister_Mandatory_Assignment/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Twister_Mandatory_Assignment/app/src/main/res/layout/content_main.xml" value="0.1" />
