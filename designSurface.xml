@@ -4,7 +4,9 @@
       <map>
         <entry key="..\:/Users/rania/AndroidStudioProjects/Argo/app/src/main/res/drawable/button_border.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Argo/app/src/main/res/drawable/rounded_border.xml" value="0.2682291666666667" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/Argo/app/src/main/res/layout/activity_main.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Argo/app/src/main/res/layout/fragment_argos.xml" value="0.264" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/Argo/app/src/main/res/layout/fragment_plastic_types.xml" value="0.253125" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Cargo/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Cargo/app/src/main/res/layout/fragment_argos.xml" value="0.13802083333333334" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/Cargo/app/src/main/res/layout/fragment_plastic_types.xml" value="0.1" />
@@ -50,7 +52,7 @@
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/drawable/rouded_button.xml" value="0.23489583333333333" />
-        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/activity_main.xml" value="0.10460992907801418" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/comments_recycler.xml" value="0.10486322188449848" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/fragment_comment.xml" value="0.10486322188449848" />
         <entry key="..\:/Users/rania/AndroidStudioProjects/TwisterPMSignleActivityMVVM/app/src/main/res/layout/fragment_message.xml" value="0.10486322188449848" />
